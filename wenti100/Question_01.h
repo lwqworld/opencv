@@ -28,7 +28,8 @@ cv::Mat Binarize(cv::Mat gray_img, int thr);
 cv::Mat Otsu(cv::Mat gray_img);
 /*
 	功能：HSV变换
-	输入：img彩色图像；HSV/BGR转换格式
+	R,G,B from 0-255, H from 0-360, S,V from 0-100
+	输入：img彩色图像；hsv:(0/1)(HSV/BGR)转换格式
 	输出：out转换后图片；
 */
-cv::Mat HSVBGR(cv::Mat img, int s);
+cv::Mat HSVBGR(cv::Mat img, int hsv);
