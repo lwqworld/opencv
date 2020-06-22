@@ -19,7 +19,7 @@ cv::Mat  Grayscale(cv::Mat img);
 	输入：gray_img灰度图像；
 	输出：out转换后图片；
 */
-cv::Mat Thresholding(cv::Mat gray_img, int thr);
+cv::Mat Binarize(cv::Mat gray_img, int thr);
 /*
 	功能：大津二值化
 	输入：gray_img灰度图像；
