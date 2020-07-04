@@ -18,6 +18,9 @@
     <ClInclude Include="Question_01.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Filters.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -26,5 +29,13 @@
     <ClCompile Include="Question_01.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Filters.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\lenovo\AppData\Local\Temp\bgr_hsv.png">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

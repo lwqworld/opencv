@@ -19,11 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Filters.h" />
     <ClInclude Include="Question_01.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Filters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Question_01.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\lenovo\AppData\Local\Temp\bgr_hsv.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

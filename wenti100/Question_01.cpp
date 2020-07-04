@@ -167,13 +167,16 @@ cv::Mat HSVBGR(cv::Mat img, int hsv)
 					s = 0;
 				}
 				//H
-				if (v == r) {
+				if (v == r && g >= b) {
 					h = 60 * (g - b) / temp;
+				}
+				else if (v == r && g < b) {
+					h = 60 * (g - b) / temp + 360;
 				}
 				else if (v == g) {
 					h = 120 + 60 * (b - r) / temp;
 				}
-				else {
+				else if(v==b) {
 					h = 240 + 60 * (r - g) / temp;
 				}
 				out.at<cv::Vec3f>(y, x)[0] = h;
@@ -233,5 +236,82 @@ cv::Mat HSVBGR(cv::Mat img, int hsv)
 		break;
 	}
 
+	return out;
+}
+
+cv::Mat Decrease_color(cv::Mat img)
+{
+	int w = img.cols;
+	int h = img.rows;
+	int channel = img.channels();
+	cv::Mat out = cv::Mat::zeros(h, w, CV_8UC3);
+
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
+			for (int c = 0; c < channel; c++) {
+				out.at<cv::Vec3b>(y, x)[c] = (uchar)(floor( \
+					(double)img.at<cv::Vec3b>(y, x)[c] / 64) * 64 + 32);
+			}
+		}
+	}
+	return out;
+}
+
+cv::Mat Pooling(cv::Mat img, int pool)
+{
+	int h = img.rows;
+	int w = img.cols;
+	int channel = img.channels();
+
+	int r = 4;//pool ∫À¥Û–°(r*r)
+	double val = 0;
+	cv::Mat out = cv::Mat::zeros(h, w, CV_8UC3);
+
+	if (pool == 0) {
+		for (int y = 0; y < h; y+= r) {
+			for (int x = 0; x < w; x+= r) {
+				for (int c = 0; c < channel; c++) {
+					val = 0;
+					for (int y_ = 0; y_ < r; y_++) {
+						for (int x_ = 0; x_ < r; x_++) {
+							val += (double)img.at<cv::Vec3b>(y + y_, x + x_)[c];
+
+						}
+					}
+					val /= (r * r);
+					for (int y_ = 0; y_ < r; y_++) {
+						for (int x_ = 0; x_ < r; x_++) {
+							out.at<cv::Vec3b>(y + y_, x + x_)[c] = (uchar)val;
+
+						}
+					}
+				}
+			}
+		}
+
+	}
+	else if(pool=1){
+		for (int y = 0; y < h; y += r) {
+			for (int x = 0; x < w; x += r) {
+				for (int c = 0; c < channel; c++) {
+					val = 0;
+					for (int y_ = 0; y_ < r; y_++) {
+						for (int x_ = 0; x_ < r; x_++) {
+							val = fmax(img.at<cv::Vec3b>(y + y_, x + x_)[c], val);
+
+						}
+					}
+					val /= (r * r);
+					for (int y_ = 0; y_ < r; y_++) {
+						for (int x_ = 0; x_ < r; x_++) {
+							out.at<cv::Vec3b>(y + y_, x + x_)[c] = (uchar)val;
+
+						}
+					}
+				}
+			}
+		}
+
+	}
 	return out;
 }
